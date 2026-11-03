@@ -13,6 +13,28 @@ class Certificates(unittest.TestCase):
         self.assertAlmostEqual(C.for_code("3102 10 19", 10_000, 2026), 5_244.5, places=1)
         self.assertAlmostEqual(C.for_code("3102 10 19", 10_000, 2034), 14_039.0, places=1)
 
+    def test_steel_7208_carbon_route(self):
+        # 10,000 x (4.049 x 1.10 - 1.370 x 0.975): Column B, route (C), rows 7208 10 00 to 7208 90 80
+        self.assertAlmostEqual(C.for_code("7208", 10_000, 2026), 31_181.5, places=1)
+
+    def test_aluminium_7612_primary_route(self):
+        # 10,000 x (3.624 x 1.10 - 1.594 x 0.975): Column B, route (K)
+        self.assertAlmostEqual(C.for_code("7612", 10_000, 2026), 24_322.5, places=1)
+
+    def test_ferro_manganese_2028_value(self):
+        # 7202 11: 1.361 for production years 2026-27, 1.277 for 2028-30 (indicators (1) and (2))
+        self.assertAlmostEqual(C.for_code("7202 11", 10_000, 2026), 10_000 * (1.69 * 1.10 - 1.361 * 0.975), places=6)
+        self.assertAlmostEqual(C.for_code("7202 11", 10_000, 2028), 10_000 * (1.69 * 1.30 - 1.277 * 0.90), places=6)
+
+    def test_mixed_fertiliser_3102_21_00(self):
+        self.assertAlmostEqual(C.for_code("3102 21 00", 10_000, 2026), 2_326.5, places=1)
+
+    def test_every_new_benchmark_names_its_row(self):
+        for code in C.BENCHMARK_ROW:
+            self.assertIn(code, C.BENCHMARK_B, code)
+        for code in C.BENCHMARK_B_2028:
+            self.assertIn(code, C.BENCHMARK_B, code)
+
     def test_path_rises_as_free_allocation_falls(self):
         p = C.path(10_000, 1.87, 1.423, "Aluminium")
         years = sorted(p)
