@@ -18,7 +18,7 @@ For an import year from 2026 to 2034, on the EU default value:
 
 - default: total default value, tCO2e per tonne (column `total_tco2e_per_t`).
 - mark-up: 10% in 2026, 20% in 2027, 30% from 2028 for cement, iron and steel, aluminium and hydrogen; 1% every year for fertilisers.
-- benchmark_B: CBAM benchmark, Column B, Implementing Regulation (EU) 2025/2620, Annex, point 5.3, for the route the default table gives for Egypt. `BENCHMARK_B` covers 59 lines; `BENCHMARK_ROW` names the Annex row or rows for each line added on 3 November 2026.
+- benchmark_B: CBAM benchmark, Column B, Implementing Regulation (EU) 2025/2620, Annex, point 5.3, for the route the default table gives for Egypt. `BENCHMARK_B` covers 59 lines; `BENCHMARK_ROW` names the Annex row or rows for each line added on 3 November 2026. From 2031 on, the latest published benchmark is carried forward (the 2028-30 figure where the Annex gives one): latest published benchmark; the EU has not yet set values for 2031 onward. Benchmark text read from the Official Journal copy of 22 December 2025; no amendment found as of 3 November 2026.
 - CBAM factor: Directive 2003/87/EC, Article 10a(1a): 97.5% in 2026 falling to 0 in 2034. Cross-sectoral correction factor 100% for 2026 to 2030 (Implementing Decision (EU) 2026/1862, Article 1), taken as 1 after.
 
 No certificate price is assumed: cost is certificates times the price you supply. No carbon price paid in Egypt is deducted.

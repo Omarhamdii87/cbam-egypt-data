@@ -9,6 +9,10 @@ default      total default value, tCO2e per tonne: Implementing Regulation (EU) 
 mark-up      10% in 2026, 20% in 2027, 30% from 2028 for cement, iron and steel, aluminium and hydrogen;
              1% every year for fertilisers (2026/1740, Annex I).
 benchmark_B  CBAM benchmark, Column B (used with default values), Implementing Regulation (EU) 2025/2620.
+             From 2031 on, the latest published benchmark is carried forward (the 2028-30 figure where the
+             Annex gives one, else 2026-27): latest published benchmark; the EU has not yet set values for 2031
+             onward. Same rule as the site. Benchmark text read from the Official Journal copy of 22 December
+             2025; no amendment found as of 3 November 2026.
 CBAM factor  Directive 2003/87/EC, Article 10a(1a). Cross-sectoral correction factor taken as 1:
              100% for 2026 to 2030 under Implementing Decision (EU) 2026/1862, Article 1, and assumed 1 after.
 
@@ -43,7 +47,8 @@ BENCHMARK_B = {
     "7607": 1.599, "7608": 1.493, "7610 90": 1.493, "7610 90 90": 1.493,
     "7612": 1.594, "7614": 1.485, "7616 99 90": 1.485,
 }
-# Where the Annex gives a second Column B figure, indicator (2), for production years 2028 to 2030.
+# Where the Annex gives a second Column B figure, indicator (2), for production years 2028 to 2030. It is also used
+# from 2031 on, as the latest published benchmark (the EU has not yet set values for 2031 onward).
 BENCHMARK_B_2028 = {
     "7202 11": 1.277, "7226 91": 1.409, "7307 29": 1.135,
 }
@@ -128,9 +133,15 @@ def certificates(tonnes, default, benchmark_b, year, sector):
     return max(0.0, tonnes * per_t)
 
 
+def benchmark_for(b_2026, b_2028, year):
+    """The benchmark for an import year: 2026-27 value, 2028-30 value where one exists, and from 2031 the latest
+    published one (latest published benchmark; the EU has not yet set values for 2031 onward)."""
+    return b_2028 if (b_2028 is not None and year >= 2028) else b_2026
+
+
 def path(tonnes, default, benchmark_b, sector, b_2028=None):
     """Certificates for each year 2026 to 2034."""
-    return {y: certificates(tonnes, default, b_2028 if (b_2028 and 2028 <= y <= 2030) else benchmark_b, y, sector)
+    return {y: certificates(tonnes, default, benchmark_for(benchmark_b, b_2028, y), y, sector)
             for y in CBAM_FACTOR}
 
 
@@ -145,6 +156,5 @@ def for_code(cn_code, tonnes, year, rows=None):
     rows = rows or load()
     c = rows[cn_code]
     b = BENCHMARK_B[cn_code]
-    if year >= 2028 and year <= 2030 and cn_code in BENCHMARK_B_2028:
-        b = BENCHMARK_B_2028[cn_code]
+    b = benchmark_for(b, BENCHMARK_B_2028.get(cn_code), year)
     return certificates(tonnes, c["default_values"]["total_tco2e_per_t"], b, year, c["sector"])

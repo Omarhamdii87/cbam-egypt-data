@@ -26,6 +26,11 @@ class Certificates(unittest.TestCase):
         self.assertAlmostEqual(C.for_code("7202 11", 10_000, 2026), 10_000 * (1.69 * 1.10 - 1.361 * 0.975), places=6)
         self.assertAlmostEqual(C.for_code("7202 11", 10_000, 2028), 10_000 * (1.69 * 1.30 - 1.277 * 0.90), places=6)
 
+    def test_after_2030_carries_latest_benchmark(self):
+        # 7307 29: no benchmark set for 2031 onward, so the 2028-30 figure (1.135) carries forward
+        self.assertAlmostEqual(C.for_code("7307 29", 10_000, 2032), 10_000 * (4.498 * 1.30 - 1.135 * 0.265), places=6)
+        self.assertAlmostEqual(C.path(10_000, 4.498, 1.173, "Iron and steel", b_2028=1.135)[2032], 10_000 * (4.498 * 1.30 - 1.135 * 0.265), places=6)
+
     def test_mixed_fertiliser_3102_21_00(self):
         self.assertAlmostEqual(C.for_code("3102 21 00", 10_000, 2026), 2_326.5, places=1)
 
