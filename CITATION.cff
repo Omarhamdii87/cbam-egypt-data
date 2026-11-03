@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this dataset or code, please cite it as below."
+title: "CBAM product codes and EU default values for Egypt, with 2025 EU imports from Egypt"
+type: dataset
+authors:
+  - family-names: Hamdy
+    given-names: Omar
+    orcid: "https://orcid.org/0009-0007-6613-8968"
+    website: "https://omarhamdy.com"
+doi: 10.5281/zenodo.23898572
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23898572
+    description: "Zenodo record"
+  - type: url
+    value: "https://omarhamdy.com/guides/cbam-egypt-exporters/codes/"
+    description: "Web version"
+version: "2026-11-02"
+date-released: 2026-11-02
+license: CC-BY-4.0
+url: "https://omarhamdy.com/guides/cbam-egypt-exporters/codes/"
+keywords:
+  - CBAM
+  - carbon border adjustment mechanism
+  - Egypt
+  - default values
+  - CN codes
+  - Eurostat Comext
+references:
+  - type: generic
+    title: "Commission Implementing Regulation (EU) 2026/1740 correcting Implementing Regulation (EU) 2025/2621 as regards Annexes I and IV"
+    url: "https://eur-lex.europa.eu/eli/reg_impl/2026/1740/oj"
+    authors:
+      - name: "European Commission"
+  - type: database
+    title: "Eurostat Comext, DS-045409, EU trade since 2002 by CN8"
+    authors:
+      - name: "Eurostat"
