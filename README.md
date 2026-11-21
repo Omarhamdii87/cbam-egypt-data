@@ -1,3 +1,7 @@
+<p align="center"><img src="assets/banner.png" alt="CBAM defaults for Egypt, line by line. cbam-egypt-data." width="100%"></p>
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23898572.svg)](https://doi.org/10.5281/zenodo.23898572) ![Data: CC BY 4.0](https://img.shields.io/badge/data-CC%20BY%204.0-0F251E) ![Code: MIT](https://img.shields.io/badge/code-MIT-0F251E) ![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-2D6B57)
+
 # cbam-egypt-data
 
 CBAM product codes and EU default values for Egypt, with 2025 EU imports from Egypt, plus the certificate formula as a small tested Python module.
