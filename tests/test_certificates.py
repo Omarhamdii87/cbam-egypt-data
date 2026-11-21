@@ -40,6 +40,11 @@ class Certificates(unittest.TestCase):
         for code in C.BENCHMARK_B_2028:
             self.assertIn(code, C.BENCHMARK_B, code)
 
+    def test_every_benchmark_names_its_source(self):
+        # Every Column B benchmark records the Annex row (or the site calculator source) it was read from.
+        for code in C.BENCHMARK_B:
+            self.assertIn(code, C.BENCHMARK_ROW, code)
+
     def test_path_rises_as_free_allocation_falls(self):
         p = C.path(10_000, 1.87, 1.423, "Aluminium")
         years = sorted(p)
