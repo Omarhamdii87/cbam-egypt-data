@@ -8,20 +8,17 @@ default      total default value, tCO2e per tonne: Implementing Regulation (EU) 
              as replaced by Implementing Regulation (EU) 2026/1740 (column total_tco2e_per_t in data/).
 mark-up      10% in 2026, 20% in 2027, 30% from 2028 for cement, iron and steel, aluminium and hydrogen;
              1% every year for fertilisers (2026/1740, Annex I).
-benchmark_B  CBAM benchmark, Column B (used with default values), Implementing Regulation (EU) 2025/2620.
-             From 2031 on, the latest published benchmark is carried forward (the 2028-30 figure where the
-             Annex gives one, else 2026-27): latest published benchmark; the EU has not yet set values for 2031
-             onward. Same rule as the site. Benchmark text read from the Official Journal copy of 22 December
-             2025; no amendment found as of 3 November 2026.
-CBAM factor  Directive 2003/87/EC, Article 10a(1a). Cross-sectoral correction factor taken as 1:
-             100% for 2026 to 2030 under Implementing Decision (EU) 2026/1862, Article 1, and assumed 1 after.
+benchmark_B  CBAM benchmark, Column B (used with default values), Implementing Regulation (EU) 2025/2620, Official Journal
+             copy of 22 December 2025 (no amendment found as of 3 November 2026). The EU has set no values after 2030, so
+             the latest published one is carried forward (the 2028-30 figure where given, else 2026-27), as on the site.
+CBAM factor  Directive 2003/87/EC, Article 10a(1a); cross-sectoral correction factor 100% (Decision (EU) 2026/1862), 1 after 2030.
 
 No price is assumed. Cost is certificates times the price you supply. No carbon price paid in Egypt is
 deducted. Illustrative arithmetic on public figures, not legal or tax advice for any shipment.
 """
 import csv, json, os
 
-__version__ = "2026.11.03"
+__version__ = "2026.11.21"
 
 CBAM_FACTOR = {2026: 0.975, 2027: 0.95, 2028: 0.90, 2029: 0.775, 2030: 0.515,
                2031: 0.39, 2032: 0.265, 2033: 0.14, 2034: 0.0}
@@ -47,14 +44,17 @@ BENCHMARK_B = {
     "7607": 1.599, "7608": 1.493, "7610 90": 1.493, "7610 90 90": 1.493,
     "7612": 1.594, "7614": 1.485, "7616 99 90": 1.485,
 }
-# Where the Annex gives a second Column B figure, indicator (2), for production years 2028 to 2030. It is also used
-# from 2031 on, as the latest published benchmark (the EU has not yet set values for 2031 onward).
+# Second Column B figure where the Annex gives one (indicator (2), years 2028 to 2030); also carried forward from 2031.
 BENCHMARK_B_2028 = {
     "7202 11": 1.277, "7226 91": 1.409, "7307 29": 1.135,
 }
 
 # The Annex row or rows each benchmark is read from, and the route used (lines from the site's calculator keep their own source).
 BENCHMARK_ROW = {
+    "2523 10 00 10": "2523 10 00 10, white clinker (site calculator source: Commission Excel transcription of 2025/2620, 6 Feb 2026)",
+    "2523 10 00 90": "2523 10 00 90, grey clinker (site calculator source: Commission Excel transcription of 2025/2620, 6 Feb 2026)",
+    "2814 20 00": "2814 20 00, ammonia in aqueous solution (site calculator source: Commission Excel transcription of 2025/2620, 6 Feb 2026)",
+    "7604 10 10": "7604 10 10, route (K) (site calculator source: Commission Excel transcription of 2025/2620, 6 Feb 2026)",
     "2523 21 00": "2523 21 00",
     "2523 29 00": "2523 29 00",
     "2814 10 00": "2814 10 00",
